@@ -1,4 +1,5 @@
 {{ if .Values.lapi.persistentVolume.data.enabled }}
+{{- if not .Values.lapi.persistentVolume.data.existingClaim -}}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -24,9 +25,11 @@ spec:
   resources:
     requests:
       storage: "{{ .Values.lapi.persistentVolume.data.size }}"
+{{- end -}}
 {{ end }}
 ---
 {{ if .Values.lapi.persistentVolume.config.enabled }}
+{{- if not .Values.lapi.persistentVolume.config.existingClaim -}}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -52,4 +55,5 @@ spec:
   resources:
     requests:
       storage: "{{ .Values.lapi.persistentVolume.config.size }}"
+{{- end -}}
 {{ end }}
