@@ -186,6 +186,7 @@ agent:
       accessModes:
         - ReadWriteOnce
       storageClassName: ""
+      #existingClaim: ""
       size: 100Mi
   # -- environment variables from crowdsecurity/crowdsec docker image
   env: []

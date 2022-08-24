@@ -120,7 +120,7 @@ spec:
       {{- if .Values.agent.persistentVolume.config.enabled }}
       - name: crowdsec-agent-config
         persistentVolumeClaim:
-          claimName: {{ .Release.Name }}-agent-config-pvc
+          claimName: {{ if .Values.agent.persistentVolume.config.existingClaim }}{{ .Values.agent.persistentVolume.config.existingClaim }}{{- else }}{{ .Release.Name }}-agent-config-pvc{{- end }}
       {{- end }}
       {{ if (include "parsersIsNotEmpty" .) }}
       {{- range $stage, $stageConfig := .Values.config.parsers -}}

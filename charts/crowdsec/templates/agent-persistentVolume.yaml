@@ -1,4 +1,5 @@
 {{ if .Values.agent.persistentVolume.config.enabled }}
+{{- if not .Values.agent.persistentVolume.config.existingClaim -}}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -24,4 +25,5 @@ spec:
   resources:
     requests:
       storage: "{{ .Values.agent.persistentVolume.config.size }}"
+{{- end -}}
 {{ end }}

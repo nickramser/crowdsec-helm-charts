@@ -125,7 +125,7 @@ spec:
       {{- if .Values.lapi.persistentVolume.data.enabled }}
       - name: crowdsec-db
         persistentVolumeClaim:
-          claimName: {{ .Release.Name }}-db-pvc
+          claimName: {{ if .Values.lapi.persistentVolume.data.existingClaim }}{{ .Values.lapi.persistentVolume.data.existingClaim }}{{- else }}{{ .Release.Name }}-db-pv{{- end }}
       {{- else if .Values.lapi.dashboard.enabled }}
       - name: crowdsec-db
         emptyDir: {}
@@ -133,7 +133,7 @@ spec:
       {{- if .Values.lapi.persistentVolume.config.enabled }}
       - name: crowdsec-config
         persistentVolumeClaim:
-          claimName: {{ .Release.Name }}-config-pvc
+          claimName: {{ if .Values.lapi.persistentVolume.config.existingClaim }}{{ .Values.lapi.persistentVolume.config.existingClaim }}{{- else }}{{ .Release.Name }}-config-pv{{- end }}
       {{- end }}
       {{ if index .Values.config "profiles.yaml" }}
       - name: crowdsec-profiles-volume
